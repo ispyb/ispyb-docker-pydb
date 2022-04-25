@@ -26,5 +26,5 @@ build:
     - docker build --pull --no-cache -t "$DOCKER_IMAGE_FULLNAME" .
     - docker push "$DOCKER_IMAGE_FULLNAME"
   only:
-    - master
+    - main
     - tags
