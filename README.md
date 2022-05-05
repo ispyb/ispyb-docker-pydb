@@ -8,7 +8,7 @@ A prepopulated mariadb ready for use with https://github.com/ispyb/py-ispyb for 
 docker build -t ispyb-pydb .
 ```
 
-Prebuilt images are available from esrfbcu on dockerhub: https://hub.docker.com/r/esrfbcu/ispyb-pydb
+Prebuilt images are available from ispyb on dockerhub: https://hub.docker.com/r/ispyb/ispyb-pydb
 
 ## Running
 
@@ -20,13 +20,13 @@ docker run --name mariadb ispyb-pydb
 
 Two users are available:
 
-- Normal user:
+-   Normal user:
 
-  - Login: `abcd`
-  - Password: Anything but not empty.
+    -   Login: `abcd`
+    -   Password: Anything but not empty.
 
-- Admin user:
-  - Login: `efgh`
-  - Password: Anything but not empty.
+-   Admin user:
+    -   Login: `efgh`
+    -   Password: Anything but not empty.
 
 Proposal name is `blc00001` and session is `blc00001-1`.

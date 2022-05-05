@@ -22,7 +22,7 @@ jobs:
               id: meta
               uses: docker/metadata-action@v3
               with:
-                  images: mgaonach/ispyb-pydb
+                  images: ispyb/ispyb-pydb
 
             - name: Build and push Docker image
               uses: docker/build-push-action@v2
