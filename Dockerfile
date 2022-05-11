@@ -9,10 +9,7 @@ ENV MYSQL_PASSWORD=test
 ENV MYSQL_USER=test 
 ENV MYSQL_DATABASE=test
 
-COPY sql/tables.sql /docker-entrypoint-initdb.d/1_tables.sql
-COPY sql/lookups.sql /docker-entrypoint-initdb.d/2_lookups.sql
-COPY sql/data.sql /docker-entrypoint-initdb.d/3_data.sql
-COPY sql/routines.sql /docker-entrypoint-initdb.d/4_routines.sql
+COPY sql/* /docker-entrypoint-initdb.d/
 
 # Need to change the datadir to something else that /var/lib/mysql because the parent docker file defines it as a volume.
 # https://docs.docker.com/engine/reference/builder/#volume :
@@ -20,7 +17,7 @@ COPY sql/routines.sql /docker-entrypoint-initdb.d/4_routines.sql
 #       it has been declared, those changes will be discarded.
 RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld", "--datadir", "/initialized-db", "--aria-log-dir-path", "/initialized-db"]
 
-RUN rm /docker-entrypoint-initdb.d/1_tables.sql /docker-entrypoint-initdb.d/2_lookups.sql /docker-entrypoint-initdb.d/3_data.sql /docker-entrypoint-initdb.d/4_routines.sql
+RUN rm /docker-entrypoint-initdb.d/*
 
 FROM mariadb:latest
 
