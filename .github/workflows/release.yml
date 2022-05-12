@@ -1,14 +1,42 @@
+name: Publish Docker image (auto release)
+
 on:
     push:
         branches:
             - main
 
 jobs:
-    release-on-push:
+    release-and-publish:
         runs-on: ubuntu-latest
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         steps:
-            - uses: rymndhng/release-on-push-action@v0.25.0
+            - id: release
+              name: Make a new github release
+              uses: rymndhng/release-on-push-action@v0.25.0
               with:
                   bump_version_scheme: minor
+            - name: Check out the repo
+              uses: actions/checkout@v3
+
+            - name: Log in to Docker Hub
+              uses: docker/login-action@v1
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+            - name: Extract metadata (tags, labels) for Docker
+              id: meta
+              uses: docker/metadata-action@v3
+              with:
+                  images: ispyb/ispyb-pydb
+                  tags: |
+                    type=raw,value=${{ steps.release.outputs.tag_name }}
+                    type=raw,value=latest
+            - name: Build and push Docker image
+              uses: docker/build-push-action@v2
+              with:
+                  context: .
+                  push: true
+                  tags: ${{ steps.meta.outputs.tags }}
+                  labels: ${{ steps.meta.outputs.labels }}
