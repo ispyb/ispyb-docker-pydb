@@ -2376,7 +2376,7 @@ CREATE TABLE `Laboratory` (
   `recordTimeStamp` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Creation or last update date/time',
   `laboratoryExtPk` int(11) DEFAULT NULL,
   PRIMARY KEY (`laboratoryId`)
-) ENGINE=InnoDB AUTO_INCREMENT=313889 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=313889 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3025,7 +3025,7 @@ CREATE TABLE `Person` (
   KEY `Person_FKIndex_Login` (`login`),
   KEY `siteId` (`siteId`),
   CONSTRAINT `Person_ibfk_1` FOREIGN KEY (`laboratoryId`) REFERENCES `Laboratory` (`laboratoryId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=404290 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=404290 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3528,7 +3528,7 @@ CREATE TABLE `Protein` (
   KEY `protein_fk3` (`componentTypeId`),
   CONSTRAINT `Protein_ibfk_1` FOREIGN KEY (`proposalId`) REFERENCES `Proposal` (`proposalId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `protein_fk3` FOREIGN KEY (`componentTypeId`) REFERENCES `ComponentType` (`componentTypeId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=382871 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=382871 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
