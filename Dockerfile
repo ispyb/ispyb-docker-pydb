@@ -9,7 +9,15 @@ ENV MYSQL_PASSWORD=test
 ENV MYSQL_USER=test 
 ENV MYSQL_DATABASE=test
 
-COPY sql/* /docker-entrypoint-initdb.d/
+RUN apt-get update && apt-get install -y wget && \
+    wget https://raw.githubusercontent.com/ispyb/ispyb-database/main/schema/1_tables.sql && \
+    wget https://raw.githubusercontent.com/ispyb/ispyb-database/main/schema/2_lookups.sql && \
+    wget https://raw.githubusercontent.com/ispyb/ispyb-database/main/schema/3_data.sql && \
+    wget https://raw.githubusercontent.com/ispyb/ispyb-database/main/schema/4_data_user_portal.sql && \
+    wget https://raw.githubusercontent.com/ispyb/ispyb-database/main/schema/5_routines.sql && \
+    mv *.sql /docker-entrypoint-initdb.d/ && \
+    apt-get clean autoclean && apt-get autoremove --yes && \
+    rm -rf /var/lib/apt/lists/*
 
 # Need to change the datadir to something else that /var/lib/mysql because the parent docker file defines it as a volume.
 # https://docs.docker.com/engine/reference/builder/#volume :
